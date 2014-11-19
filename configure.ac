@@ -345,6 +345,7 @@ case $host in
   *)
     AC_MSG_WARN([Skipping check_ide_smart plugin.])
     AC_MSG_WARN([check_ide_smart works only on Linux and NetBSD])
+	;;
 esac
 
 if test "$FOUNDINCLUDE" = "yes" ; then
