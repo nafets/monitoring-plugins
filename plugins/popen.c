@@ -39,9 +39,9 @@
 *****************************************************************************/
 
 #include "common.h"
+#include "utils.h"
 
 /* extern so plugin has pid to kill exec'd process on timeouts */
-extern int timeout_interval;
 extern pid_t *childpid;
 extern int *child_stderr_array;
 extern FILE *child_process;
@@ -76,8 +76,6 @@ RETSIGTYPE popen_timeout_alarm_handler (int);
 #define	SIG_ERR	((Sigfunc *)-1)
 #endif
 
-#define	min(a,b)	((a) < (b) ? (a) : (b))
-#define	max(a,b)	((a) > (b) ? (a) : (b))
 int open_max (void);						/* {Prog openmax} */
 static void err_sys (const char *, ...) __attribute__((noreturn,format(printf, 1, 2)));
 char *rtrim (char *, const char *);
@@ -301,12 +299,14 @@ popen_timeout_alarm_handler (int signo)
 			if(fh >= 0){
 				kill (childpid[fh], SIGKILL);
 			}
-			printf (_("CRITICAL - Plugin timed out after %d seconds\n"),
-						timeout_interval);
+			printf (_("%s - Plugin timed out after %d seconds\n"),
+				state_text(timeout_state), timeout_interval);
 		} else {
-			printf ("%s\n", _("CRITICAL - popen timeout received, but no child process"));
+			printf (_("%s - popen timeout received, but no child process\n"),
+				state_text(timeout_state) );
+
 		}
-		exit (STATE_CRITICAL);
+		exit (timeout_state);
 	}
 }
 

@@ -31,7 +31,11 @@
 #include "netutils.h"
 
 unsigned int socket_timeout = DEFAULT_SOCKET_TIMEOUT;
+#ifdef EXIT_UNKNOWN_ON_TIMEOUT
+unsigned int socket_timeout_state = STATE_UNKNOWN;
+#else
 unsigned int socket_timeout_state = STATE_CRITICAL;
+#endif
 
 int econn_refuse_state = STATE_CRITICAL;
 int was_refused = FALSE;

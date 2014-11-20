@@ -40,6 +40,7 @@
 
 /** includes **/
 #include "runcmd.h"
+#include "utils.h"
 #ifdef HAVE_SYS_WAIT_H
 # include <sys/wait.h>
 #endif
@@ -261,13 +262,14 @@ runcmd_timeout_alarm_handler (int signo)
 	size_t i;
 
 	if (signo == SIGALRM)
-		puts(_("CRITICAL - Plugin timed out while executing system call"));
+		printf(_("%s - Plugin timed out while executing system call"),
+				state_text(timeout_state) );
 
 	if(np_pids) for(i = 0; i < maxfd; i++) {
 		if(np_pids[i] != 0) kill(np_pids[i], SIGKILL);
 	}
 
-	exit (STATE_CRITICAL);
+	exit (timeout_state);
 }
 
 

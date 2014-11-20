@@ -1780,6 +1780,16 @@ if test "$enable_perl_modules" = "yes" ; then
   AC_SUBST(PERLMODS_DIR,perlmods)
 fi
 
+dnl Exit with an UNKNOWN on a timeout
+AC_ARG_ENABLE(exit-unknown-on-timeout,
+	AC_HELP_STRING([--enable-exit-unknown-on-timeout],
+		[Enables that the plugins should exit with an UNKNOWN in case of a timeout (default: no)]),
+	[enable_exit_unknown_on_timeout=$enableval],
+	[enable_exit_unknown_on_timeout=no])
+if test "$enable_exit_unknown_on_timeout" = "yes" ; then
+	AC_DEFINE(EXIT_UNKNOWN_ON_TIMEOUT,1,[On a timeout exit with an UNKNOWN])
+fi
+
 # From Tap configure
 # Checks for libraries
 case "$host" in
@@ -1852,4 +1862,5 @@ ACX_FEATURE([enable],[perl-modules])
 ACX_FEATURE([with],[cgiurl])
 ACX_FEATURE([with],[trusted-path])
 ACX_FEATURE([enable],[libtap])
+ACX_FEATURE([enable],[exit-unknown-on-timeout])
 
