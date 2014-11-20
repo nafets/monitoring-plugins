@@ -12,7 +12,7 @@ plan tests => 5;
 
 my $host_tcp_smtp = getTestParameter( 
 			"NP_HOST_TCP_SMTP",
-			"A host providing an STMP Service (a mail server)",
+			"A host providing an SMTP Service (a mail server)",
 			"mailhost"
 			);
 

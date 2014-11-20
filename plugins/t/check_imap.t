@@ -9,7 +9,7 @@ use Test::More tests => 7;
 use NPTest;
 
 my $host_tcp_smtp      = getTestParameter( "host_tcp_smtp",      "NP_HOST_TCP_SMTP",      "mailhost",
-					   "A host providing an STMP Service (a mail server)");
+					   "A host providing an SMTP Service (a mail server)");
 
 my $host_tcp_imap      = getTestParameter( "host_tcp_imap",      "NP_HOST_TCP_IMAP",      $host_tcp_smtp,
 					   "A host providing an IMAP Service (a mail server)");
